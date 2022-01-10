@@ -1,4 +1,4 @@
-const int NUM_MAPPINGS = 3;
+const int NUM_MAPPINGS = 18;
 const int SENSOR_PINS[8] = {6, 7, 8, 9, 10, 11, 12, 13};
 
 const int num_sensors = 8;
@@ -13,9 +13,23 @@ struct letter_sensor_mapping {
 
 // {index_tip, middle_tip, ring_tip, pinky_tip, index_joint, middle_joint, ring_joint, pinky_joint}
 letter_sensor_mapping letter_sensor_mappings[NUM_MAPPINGS] = {
-  {"a", {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH}},
-  {"b", {LOW, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH}},
-  {"c", {LOW, LOW, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH}}
+{"a", {0,0,0,0,0,1,1,1}},
+{"d", {1,0,1,1,1,1,1,1}},
+{"f", {0,1,1,1,1,1,1,1}},
+{"g", {1,0,0,0,1,0,1,1}},
+{"h", {1,1,0,0,1,1,0,1}},
+{"i", {0,0,0,1,0,1,1,1}},
+{"k/p", {1,1,0,0,1,0,1,1}},
+{"l/q", {1,0,0,0,1,1,1,1}},
+{"m", {0,0,0,0,1,1,1,0}},
+{"n", {0,0,0,0,1,1,0,1}},
+{"o", {0,0,1,1,1,1,1,1}},
+{"r/u/v", {1,1,0,0,1,1,0,1}},
+{"s", {0,0,0,0,1,1,1,1}},
+{"t", {0,0,0,0,1,0,1,1}},
+{"w", {1,1,1,1,1,1,1,0}},
+{"x", {1,0,0,0,1,0,1,1}},
+{"y", {0,0,0,1,1,1,1,1}}
 };
 
 void setup() {
@@ -69,11 +83,12 @@ void updateLetter() {
 
 void speakCharacter() {
   // TODO: output intepreted_character to speakers  
+//  Serial.print("index_tip, middle_tip, ring_tip, pinky_tip, index_joint, middle_joint, ring_joint, pinky_joint");
+//  Serial.println("");
   Serial.print(interpreted_letter);
   Serial.print(": ");
   for (int i = 0; i<num_sensors; i++) {
     Serial.print(sensor_readings[i]);
-    Serial.print(",");
   }
   Serial.println("");
 }
