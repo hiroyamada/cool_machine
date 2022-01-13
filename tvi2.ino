@@ -15,6 +15,7 @@ const int num_sensors = 8;
 
 int sensor_readings[num_sensors] = {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH};
 char* interpreted_letter = "not found";
+char* previous_interpreted_letter = "not found";
 
 struct letter_sensor_mapping {
   char* letter;
@@ -72,8 +73,9 @@ void setupSpeakers() {
 void loop() {
   updateReadings();
   updateLetter();
-  speakCharacter();
-  delay(1000);
+  speakCharacter(); //Not speaking if character hasn't changed is built into this function
+  delay(100);
+  previous_interpreted_letter = interpreted_letter;
 }
 
 void updateReadings() {
@@ -102,6 +104,17 @@ void updateLetter() {
 }
 
 void speakCharacter() {
+  Serial.print(interpreted_letter);
+  Serial.print(": ");
+  for (int i = 0; i < num_sensors; i++) {
+    Serial.print(sensor_readings[i]);
+  }
+  Serial.println("");
+
+  if (interpreted_letter == previous_interpreted_letter) {
+    return;
+  }
+
   if (interpreted_letter == "a") {
     voice.say(spa_A);
   }
@@ -155,10 +168,4 @@ void speakCharacter() {
   else if (interpreted_letter == "y") {
     voice.say(spa_Y);
   }
-  Serial.print(interpreted_letter);
-  Serial.print(": ");
-  for (int i = 0; i < num_sensors; i++) {
-    Serial.print(sensor_readings[i]);
-  }
-  Serial.println("");
 }
