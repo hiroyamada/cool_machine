@@ -73,9 +73,11 @@ void setupSpeakers() {
 void loop() {
   updateReadings();
   updateLetter();
-  speakCharacter(); //Not speaking if character hasn't changed is built into this function
+  printReadingsAndCharacter();
+  if (interpreted_letter != previous_interpreted_letter) {
+    speakCharacter();
+  }
   delay(100);
-  previous_interpreted_letter = interpreted_letter;
 }
 
 void updateReadings() {
@@ -86,6 +88,8 @@ void updateReadings() {
 }
 
 void updateLetter() {
+  previous_interpreted_letter = interpreted_letter;
+
   for (int i = 0; i < NUM_MAPPINGS; i++) {
     boolean mapping_match = true;
     for (int j = 0; j < num_sensors; j++) {
@@ -103,18 +107,16 @@ void updateLetter() {
   interpreted_letter = "not found";
 }
 
-void speakCharacter() {
+void printReadingsAndCharacter() {
   Serial.print(interpreted_letter);
   Serial.print(": ");
   for (int i = 0; i < num_sensors; i++) {
     Serial.print(sensor_readings[i]);
   }
   Serial.println("");
+}
 
-  if (interpreted_letter == previous_interpreted_letter) {
-    return;
-  }
-
+void speakCharacter() {
   if (interpreted_letter == "a") {
     voice.say(spa_A);
   }
