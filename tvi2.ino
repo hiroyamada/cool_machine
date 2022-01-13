@@ -27,14 +27,13 @@ letter_sensor_mapping letter_sensor_mappings[NUM_MAPPINGS] = {
   {"d", {1, 0, 1, 1, 1, 1, 1, 1}},
   {"f", {0, 1, 1, 1, 1, 1, 1, 1}},
   {"g", {1, 0, 0, 0, 1, 0, 1, 1}},
-  {"h", {1, 1, 0, 0, 1, 1, 0, 1}},
+  {"h/r/u/v", {1, 1, 0, 0, 1, 1, 0, 1}},
   {"i", {0, 0, 0, 1, 0, 1, 1, 1}},
   {"k/p", {1, 1, 0, 0, 1, 0, 1, 1}},
   {"l/q", {1, 0, 0, 0, 1, 1, 1, 1}},
   {"m", {0, 0, 0, 0, 1, 1, 1, 0}},
   {"n", {0, 0, 0, 0, 1, 1, 0, 1}},
   {"o", {0, 0, 1, 1, 1, 1, 1, 1}},
-  {"r/u/v", {1, 1, 0, 0, 1, 1, 0, 1}},
   {"s", {0, 0, 0, 0, 1, 1, 1, 1}},
   {"t", {0, 0, 0, 0, 1, 0, 1, 1}},
   {"w", {1, 1, 1, 1, 1, 1, 1, 0}},
@@ -115,8 +114,9 @@ void speakCharacter() {
   else if (interpreted_letter == "g") {
     voice.say(spa_G);
   }
-  else if (interpreted_letter == "h") {
-    voice.say(spa_H);
+  else if (interpreted_letter == "h/r/u/v") {
+    // only pronounce "V"  for demo purposes
+    voice.say(spa_V);
   }
   else if (interpreted_letter == "i") {
     voice.say(spa_I);
@@ -139,13 +139,6 @@ void speakCharacter() {
   }
   else if (interpreted_letter == "o") {
     voice.say(spa_O);
-  }
-  else if (interpreted_letter == "r/u/v") {
-    voice.say(spa_R);
-    voice.say(spa_OR);
-    voice.say(spa_U);
-    voice.say(spa_OR);
-    voice.say(spa_V);
   }
   else if (interpreted_letter == "s") {
     voice.say(spa_S);
